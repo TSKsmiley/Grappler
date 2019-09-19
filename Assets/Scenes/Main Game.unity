@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 1786697}
   - component: {fileID: 1786693}
   - component: {fileID: 1786699}
-  - component: {fileID: 1786700}
   - component: {fileID: 1786698}
+  - component: {fileID: 1786700}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -367,18 +367,18 @@ SpringJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786692}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 0.005
-  m_DampingRatio: 1
+  m_AutoConfigureDistance: 1
+  m_Distance: 7.5445414
+  m_DampingRatio: 0
   m_Frequency: 1
 --- !u!1 &519420028
 GameObject:

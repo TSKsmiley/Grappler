@@ -6,58 +6,75 @@ public class lineMaker : MonoBehaviour
 {
 
 	LineRenderer lr;
-    Rigidbody2D rb;
-    public float speed;
-	SpringJoint2D sj;
+	Rigidbody2D rb;
+	public float speed;
+
+	//SpringJoint2D sj;
 	Rigidbody2D currentBody;
 
 	public bool inTrigger = false;
 	bool grappleActive = false;
 
 	Vector2 currentTrigger;
+	
 
-    void Start()
-    {
+	void Start()
+	{
 		lr = GetComponent<LineRenderer>();
-        rb = GetComponent<Rigidbody2D>();
-		sj = GetComponent<SpringJoint2D>();
+		rb = GetComponent<Rigidbody2D>();
 		lr.startWidth = 0F;
 		lr.endWidth = 0F;
+
+
+		//sj = GetComponent<SpringJoint2D>();
 	}
 
-    
-    void Update()
-    {
+
+	void Update()
+	{
 		lr.SetPosition(0, this.transform.position);
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (inTrigger == true)
 			{
-				sj.enabled = true;
+				//sj.enabled = true;
+
+
 				grappleActive = true;
 				lr.startWidth = 0.1F;
 				lr.endWidth = 0.1F;
-				
+
+				SpringJoint2D springTemp = gameObject.AddComponent(typeof(SpringJoint2D)) as SpringJoint2D;
+				springTemp.enableCollision = true;
+				springTemp.autoConfigureDistance = false;
+				springTemp.distance = 0.005F;
+				springTemp.dampingRatio = 1F;
+					
 			}
 		}
 		if (Input.GetKey(KeyCode.Space))
 		{
 			lr.SetPosition(1, currentTrigger);
-			sj.connectedBody = currentBody;
+
+			//sj.connectedBody = currentBody;
 		}
 		if (Input.GetKeyUp(KeyCode.Space))
 		{
 			lr.startWidth = 0F;
 			lr.endWidth = 0F;
 			grappleActive = false;
+
+			
 			
 		}
 
 		if (grappleActive == false)
 		{
 			lr.SetPosition(1, this.transform.position);
-			sj.enabled = false;
+
+
+			//sj.enabled = false;
 		}
 	}
 
@@ -75,9 +92,10 @@ public class lineMaker : MonoBehaviour
 		if (other.tag == "Hook")
 		{
 			currentTrigger = other.transform.position;
-			currentBody = other.attachedRigidbody;
 			Debug.Log("Player Enterd Trigger");
 			inTrigger = true;
+
+			currentBody = other.attachedRigidbody;
 		}
 	}
 
