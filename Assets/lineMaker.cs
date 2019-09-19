@@ -9,7 +9,7 @@ public class lineMaker : MonoBehaviour
     Rigidbody2D rb;
     public float speed;
 
-	bool inTrigger = false;
+	public bool inTrigger = false;
 	bool grappleActive = false;
     
     
@@ -28,9 +28,13 @@ public class lineMaker : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			grappleActive = true;
-			lr.startWidth = 0.1F;
-			lr.endWidth = 0.1F;
+            if (inTrigger == true)
+            {
+                grappleActive = true;
+                lr.startWidth = 0.1F;
+                lr.endWidth = 0.1F;
+            }
+
 		}
 		if (Input.GetKey(KeyCode.Space) && inTrigger == true)
 		{
@@ -61,10 +65,12 @@ public class lineMaker : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == "Hook")
 		{
 			Debug.Log("Player Enterd Trigger");
 			inTrigger = true;
 		}
 	}
+
+    private void
 }
