@@ -11,8 +11,9 @@ public class lineMaker : MonoBehaviour
 
 	public bool inTrigger = false;
 	bool grappleActive = false;
-    
-    
+
+	Vector2 currentTrigger;
+
     void Start()
     {
 		lr = GetComponent<LineRenderer>();
@@ -26,16 +27,18 @@ public class lineMaker : MonoBehaviour
     {
 		lr.SetPosition(0, this.transform.position);
 
-		if (Input.GetKeyDown(KeyCode.Space) && inTrigger == true)
-		{ 
-			grappleActive = true;
-			lr.startWidth = 0.1F;
-			lr.endWidth = 0.1F;
-		
-		}
-		if (Input.GetKey(KeyCode.Space) && inTrigger == true)
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			lr.SetPosition(1, this.transform.position);
+			if (inTrigger == true)
+			{
+				grappleActive = true;
+				lr.startWidth = 0.1F;
+				lr.endWidth = 0.1F;
+			}
+		}
+		if (Input.GetKey(KeyCode.Space))
+		{
+			lr.SetPosition(1, currentTrigger);
 		}
 		if (Input.GetKeyUp(KeyCode.Space))
 		{
@@ -50,19 +53,20 @@ public class lineMaker : MonoBehaviour
 		}
 	}
 
-    void FixedUpdate()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+    //void FixedUpdate()
+    //{
+    //    float moveHorizontal = Input.GetAxis("Horizontal");
+    //    float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.velocity = movement * speed;
-    }
+    //    Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+    //    rb.velocity = movement * speed;
+    //}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.tag == "Hook")
 		{
+			currentTrigger = other.transform.position;
 			Debug.Log("Player Enterd Trigger");
 			inTrigger = true;
 		}
@@ -70,6 +74,10 @@ public class lineMaker : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
-		inTrigger = false;
+		if (other.tag == "Hook")
+		{
+			Debug.Log("Player Left Trigger");
+			inTrigger = false;
+		}
 	}
 }

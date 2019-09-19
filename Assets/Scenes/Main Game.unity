@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 1786693}
   - component: {fileID: 1786699}
   - component: {fileID: 1786698}
+  - component: {fileID: 1786700}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -240,7 +241,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -359,6 +360,26 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!231 &1786700
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786692}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0.0000007748604, y: 3.725657}
+  m_AutoConfigureDistance: 0
+  m_Distance: 0.005
+  m_DampingRatio: 0.2
+  m_Frequency: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +476,6 @@ GameObject:
   - component: {fileID: 915500891}
   - component: {fileID: 915500890}
   - component: {fileID: 915500889}
-  - component: {fileID: 915500888}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Hook
@@ -463,20 +483,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &915500888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 915500887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87717f4c55185b49965f8a668bd8492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lr: {fileID: 1786699}
-  inTrigger: 0
 --- !u!61 &915500889
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -602,7 +608,6 @@ GameObject:
   - component: {fileID: 1214699668}
   - component: {fileID: 1214699667}
   - component: {fileID: 1214699666}
-  - component: {fileID: 1214699665}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Hook
@@ -610,20 +615,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1214699665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214699664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87717f4c55185b49965f8a668bd8492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lr: {fileID: 1786699}
-  inTrigger: 0
 --- !u!61 &1214699666
 BoxCollider2D:
   m_ObjectHideFlags: 0
