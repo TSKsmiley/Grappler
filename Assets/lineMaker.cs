@@ -34,7 +34,6 @@ public class lineMaker : MonoBehaviour
 	{
 		lr.SetPosition(0, this.transform.position);
 
-		
 		if (Input.GetKey(KeyCode.Space))
 		{
             if (inTrigger > 0)
