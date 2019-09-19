@@ -34,18 +34,7 @@ public class lineMaker : MonoBehaviour
 	{
 		lr.SetPosition(0, this.transform.position);
 
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			if (inTrigger > 0)
-			{
-				sj.enabled = true;
-
-				grappleActive = true;
-				lr.startWidth = 0.1F;
-				lr.endWidth = 0.1F;
-					
-			}
-		}
+		
 		if (Input.GetKey(KeyCode.Space))
 		{
             if (inTrigger > 0)
