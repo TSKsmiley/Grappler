@@ -5,23 +5,17 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
-
+    public Animator anim;
     
     // Start is called before the first frame update
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    {   
+        anim = GetComponent<Animator>();
     }
 
     public void ButtonPlay()
     {
-        
+        anim.Play("MenuFall");
     }
 
     public void ButtonQuit()
