@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lineMaker : MonoBehaviour
+public class grapplingHook : MonoBehaviour
 {
 
 	LineRenderer lr;
