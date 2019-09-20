@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Hook
   - Walls
+  - Door
+  - Key
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

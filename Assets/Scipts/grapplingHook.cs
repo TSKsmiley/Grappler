@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class grapplingHook : MonoBehaviour
 {
+	public Transform spawnPoint;
+	public Transform spawnPoint2;
 
 	LineRenderer lr;
 	Rigidbody2D rb;
@@ -18,15 +20,22 @@ public class grapplingHook : MonoBehaviour
 	bool grappleActive = false;
 
 	Vector2 currentTrigger;
-	
+
+	bool haveKey = false;
+
+	public int checkpoints = 0;
 
 	void Start()
 	{
+		//Gets the Line rendere and rigidbody of the player
 		lr = GetComponent<LineRenderer>();
 		rb = GetComponent<Rigidbody2D>();
+
+		//Sets the lines width to 0
 		lr.startWidth = 0F;
 		lr.endWidth = 0F;
 
+		//Gets the spring joint component.
         sj = GetComponent<SpringJoint2D>();
     }
 
@@ -35,7 +44,7 @@ public class grapplingHook : MonoBehaviour
 	{
 		lr.SetPosition(0, this.transform.position);
 
-		
+		//Enables the players' grapple
 		if (Input.GetKey(KeyCode.Space))
 		{
             if (inTrigger > 0)
@@ -53,7 +62,8 @@ public class grapplingHook : MonoBehaviour
 
 			sj.connectedBody = currentBody;
 		}
-		if (Input.GetKeyUp(KeyCode.Space))
+		//Disables the players' grapple
+		if (Input.GetKeyUp(KeyCode.Space))		
 		{
 			lr.startWidth = 0F;
 			lr.endWidth = 0F;
@@ -61,6 +71,8 @@ public class grapplingHook : MonoBehaviour
 
             sj.connectedBody = null;
         }
+
+		//Set the line behind the player to hide it																																																															Super janky, i know.
 		if (grappleActive == false)
 		{
 			lr.SetPosition(1, this.transform.position);
@@ -68,32 +80,66 @@ public class grapplingHook : MonoBehaviour
 
 			sj.enabled = false;
 		}
+
+		
 	}
 
 
 
     private void OnTriggerEnter2D(Collider2D other)
 	{
+		//Allows the player to hook 
 		if (other.tag == "Hook")
 		{
 			currentTrigger = other.transform.position;
-			Debug.Log("Player Enterd Trigger");
+			//Debug.Log("Player Enterd Trigger");
 			inTrigger += 1;
 
 			currentBody = other.attachedRigidbody;
 		}
 
+		//Respawn player if touch wall
 		if (other.tag == "Walls")
 		{
-			SceneManager.LoadScene(0);
+			rb.velocity = new Vector2();
+			this.transform.position = spawnPoint.position;
+			
+			if (checkpoints >= 1)
+			{
+				rb.velocity = new Vector2();
+				this.transform.position = spawnPoint2.position;
+			}
+
+		}
+
+		//Give the player the key
+		if (other.tag == "Key")
+		{
+			haveKey = true;
+			Debug.Log("Player Took Key");
+			Destroy(other.gameObject);
+		}
+
+		//Check for key on door, remove key from player
+		if (other.tag == "Door" && haveKey == true)
+		{
+			Destroy(other.gameObject);
+			haveKey = false;
+		}
+
+		//Cehck for checkpoint
+		if (other.tag == "Checkpoint")
+		{
+			checkpoints += 1;
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
+		//Disables the players ability to hook
 		if (other.tag == "Hook")
 		{
-			Debug.Log("Player Left Trigger");
+			//Debug.Log("Player Left Trigger");
 			inTrigger -= 1;
 		}
 	}
