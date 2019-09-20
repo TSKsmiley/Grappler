@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class grapplingHook : MonoBehaviour
 {
@@ -69,14 +70,7 @@ public class grapplingHook : MonoBehaviour
 		}
 	}
 
-    //void FixedUpdate()
-    //{
-    //    float moveHorizontal = Input.GetAxis("Horizontal");
-    //    float moveVertical = Input.GetAxis("Vertical");
 
-    //    Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-    //    rb.velocity = movement * speed;
-    //}
 
     private void OnTriggerEnter2D(Collider2D other)
 	{
@@ -87,6 +81,11 @@ public class grapplingHook : MonoBehaviour
 			inTrigger += 1;
 
 			currentBody = other.attachedRigidbody;
+		}
+
+		if (other.tag == "Walls")
+		{
+			SceneManager.LoadScene(0);
 		}
 	}
 
