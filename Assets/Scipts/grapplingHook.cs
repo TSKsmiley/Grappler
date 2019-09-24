@@ -27,7 +27,15 @@ public class grapplingHook : MonoBehaviour
 
 	public int checkpoints = 0;
 
-	void Start()
+    // Audio for collision with walls
+    public AudioSource AudioSrc;
+    public AudioClip CollisionSound;
+    // Audio for grappling hook
+    public AudioClip HookSound;
+
+    bool prevSpace = false;
+
+    void Start()
 	{
 		//Gets the Line rendere and rigidbody of the player
 		lr = GetComponent<LineRenderer>();
@@ -39,6 +47,10 @@ public class grapplingHook : MonoBehaviour
 
 		//Gets the spring joint component.
         sj = GetComponent<SpringJoint2D>();
+
+        // Sound
+        //AudioSrc.clip = CollisionSound;
+        //AudioSrc.clip = HookSound;
     }
 
 
@@ -46,11 +58,19 @@ public class grapplingHook : MonoBehaviour
 	{
 		lr.SetPosition(0, this.transform.position);
 
-		//Enables the players' grapple
-		if (Input.GetKey(KeyCode.Space))
+
+        //Enables the players' grapple
+        if (Input.GetKey(KeyCode.Space))
 		{
             if (inTrigger > 0)
             {
+                if(prevSpace == false)
+                {
+                    AudioSrc.clip = HookSound;
+                    AudioSrc.Play();
+                    prevSpace = true;
+                }
+                
                 sj.enabled = true;
 
                 grappleActive = true;
@@ -59,11 +79,14 @@ public class grapplingHook : MonoBehaviour
 
             }
 
-
             lr.SetPosition(1, currentTrigger);
 
 			sj.connectedBody = currentBody;
-		}
+        }
+        else
+        {
+            prevSpace = false;
+        }
 		//Disables the players' grapple
 		if (Input.GetKeyUp(KeyCode.Space))		
 		{
@@ -93,7 +116,7 @@ public class grapplingHook : MonoBehaviour
 		//Allows the player to hook 
 		if (other.tag == "Hook")
 		{
-			currentTrigger = other.transform.position;
+            currentTrigger = other.transform.position;
 			//Debug.Log("Player Enterd Trigger");
 			inTrigger += 1;
 
@@ -103,7 +126,10 @@ public class grapplingHook : MonoBehaviour
 		//Respawn player if touch wall
 		if (other.tag == "Walls")
 		{
-			rb.velocity = new Vector2();
+            AudioSrc.clip = CollisionSound;
+            AudioSrc.Play();
+            
+            rb.velocity = new Vector2();
 			this.transform.position = spawnPoint.position;
 
 			switch (checkpoints)
