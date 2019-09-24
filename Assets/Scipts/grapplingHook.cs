@@ -7,6 +7,8 @@ public class grapplingHook : MonoBehaviour
 {
 	public Transform spawnPoint;
 	public Transform spawnPoint2;
+	public Transform spawnPoint3;
+	public Transform spawnPoint4;
 
 	LineRenderer lr;
 	Rigidbody2D rb;
@@ -104,19 +106,29 @@ public class grapplingHook : MonoBehaviour
 			rb.velocity = new Vector2();
 			this.transform.position = spawnPoint.position;
 			
-			if (checkpoints >= 1)
+			if (checkpoints == 1)//Respawn at second checkpoint if checkpoints reached is 1
 			{
 				rb.velocity = new Vector2();
 				this.transform.position = spawnPoint2.position;
+			}
+			if (checkpoints == 2)//Respawn at second checkpoint if checkpoints reached is 2
+			{
+				rb.velocity = new Vector2();
+				this.transform.position = spawnPoint3.position;
+			}
+			if (checkpoints == 3)//Respawn at second checkpoint if checkpoints reached is 3
+			{
+				rb.velocity = new Vector2();
+				this.transform.position = spawnPoint4.position;
 			}
 
 		}
 
 		//Give the player the key
-		if (other.tag == "Key")
+		if (other.tag == "RedKey")
 		{
 			haveKey = true;
-			Debug.Log("Player Took Key");
+			Debug.Log("Player Took The Red Key");
 			Destroy(other.gameObject);
 		}
 
@@ -131,6 +143,7 @@ public class grapplingHook : MonoBehaviour
 		if (other.tag == "Checkpoint")
 		{
 			checkpoints += 1;
+			Destroy(other); //Removes the collider after impact
 		}
 	}
 

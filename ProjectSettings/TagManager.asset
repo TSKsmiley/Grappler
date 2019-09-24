@@ -7,8 +7,10 @@ TagManager:
   - Hook
   - Walls
   - Door
-  - Key
   - Checkpoint
+  - RedKey
+  - GreenKey
+  - BlueKey
   layers:
   - Default
   - TransparentFX
