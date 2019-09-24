@@ -11,6 +11,7 @@ TagManager:
   - RedKey
   - GreenKey
   - BlueKey
+  - Floor
   layers:
   - Default
   - TransparentFX
