@@ -45,10 +45,6 @@ public class grapplingHook : MonoBehaviour
 
 		//Gets the spring joint component.
         sj = GetComponent<SpringJoint2D>();
-
-        // Sound
-        //AudioSrc.clip = CollisionSound;
-        //AudioSrc.clip = HookSound;
     }
 
 
@@ -126,31 +122,10 @@ public class grapplingHook : MonoBehaviour
 		{
             AudioSrc.clip = CollisionSound;
             AudioSrc.Play();
-            
-            rb.velocity = new Vector2();
-			this.transform.position = spawnPoint.position;
 
-			switch (checkpoints)
-			{
-				case 1:
-					rb.velocity = new Vector2(); ;
-					this.transform.position = spawnPoint2.position; ;
-					break;
+            respawnPlayer();
 
-				case 2:
-					rb.velocity = new Vector2();
-					this.transform.position = spawnPoint3.position;
-					break;
-
-				case 3:
-					rb.velocity = new Vector2();
-					this.transform.position = spawnPoint4.position;
-					break;
-
-				default:
-					break;
-			}
-		}
+        }
 
 		//Give the player the key
 		if (other.tag == "RedKey")
@@ -184,4 +159,31 @@ public class grapplingHook : MonoBehaviour
 			inTrigger -= 1;
 		}
 	}
+
+    public void respawnPlayer()
+    {
+        rb.velocity = new Vector2();
+        this.transform.position = spawnPoint.position;
+
+        switch (checkpoints)
+        {
+            case 1:
+                rb.velocity = new Vector2(); ;
+                this.transform.position = spawnPoint2.position; ;
+                break;
+
+            case 2:
+                rb.velocity = new Vector2();
+                this.transform.position = spawnPoint3.position;
+                break;
+
+            case 3:
+                rb.velocity = new Vector2();
+                this.transform.position = spawnPoint4.position;
+                break;
+
+            default:
+                break;
+        }
+    }
 }
