@@ -13,12 +13,10 @@ public class grapplingHook : MonoBehaviour
 	LineRenderer lr;
 	Rigidbody2D rb;
     
-	public float speed;
-
 	SpringJoint2D sj;
 	Rigidbody2D currentBody;
 
-	public int inTrigger = 0;
+	int inTrigger = 0;
 	bool grappleActive = false;
 
 	Vector2 currentTrigger;
