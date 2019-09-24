@@ -6,12 +6,14 @@ TagManager:
   tags:
   - Hook
   - Walls
-  - Door
   - Checkpoint
   - RedKey
   - GreenKey
   - BlueKey
   - Floor
+  - GreenDoor
+  - RedDoor
+  - BlueDoor
   layers:
   - Default
   - TransparentFX
