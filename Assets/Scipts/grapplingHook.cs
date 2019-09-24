@@ -5,14 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class grapplingHook : MonoBehaviour
 {
-	public Transform spawn;
-	public Transform spawnPoint1;
+	public Transform spawnPoint;
 	public Transform spawnPoint2;
 	public Transform spawnPoint3;
 	public Transform spawnPoint4;
-	public Transform spawnPoint5;
-	public Transform spawnPoint6;
-	//public Transform spawnPoint7;
 
 	LineRenderer lr;
 	Rigidbody2D rb;
@@ -25,9 +21,7 @@ public class grapplingHook : MonoBehaviour
 
 	Vector2 currentTrigger;
 
-	bool haveRedKey = false;
-	bool haveGreenKey = false;
-	bool haveBlueKey = false;
+	bool haveKey = false;
 
 	public int checkpoints = 0;
 
@@ -58,10 +52,6 @@ public class grapplingHook : MonoBehaviour
 	{
 		lr.SetPosition(0, this.transform.position);
 
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			respawnPlayer();
-		}
 
         //Enables the players' grapple
         if (Input.GetKey(KeyCode.Space))
@@ -137,59 +127,19 @@ public class grapplingHook : MonoBehaviour
 
         }
 
-
-
-
-		//Give the player red key
+		//Give the player the key
 		if (other.tag == "RedKey")
 		{
-			haveRedKey = true;
+			haveKey = true;
 			Debug.Log("Player Took The Red Key");
 			Destroy(other.gameObject);
 		}
-		//Give the player red key
-		if (other.tag == "GreenKey")
-		{
-			haveGreenKey = true;
-			Debug.Log("Player Took The Green Key");
-			Destroy(other.gameObject);
-		}
-		//Give the player red key
-		if (other.tag == "BlueKey")
-		{
-			haveBlueKey = true;
-			Debug.Log("Player Took The Blue Key");
-			Destroy(other.gameObject);
-		}
 
-
-
-
-
-		//Check for RedKey on RedDoor, remove RedKey from player
-		if (other.tag == "RedDoor" && haveRedKey == true)
+		//Check for key on door, remove key from player
+		if (other.tag == "Door" && haveKey == true)
 		{
 			Destroy(other.gameObject);
-			haveRedKey = false;
-		}
-		//Check for GreenKey on RedDoor, remove RedKey from player
-		if (other.tag == "GreenDoor" && haveGreenKey == true)
-		{
-			Destroy(other.gameObject);
-			haveGreenKey = false;
-		}
-		//Check for RedKey on RedDoor, remove RedKey from player
-		if (other.tag == "BlueDoor" && haveBlueKey == true)
-		{
-			Destroy(other.gameObject);
-			haveBlueKey = false;
-		}
-
-
-		if (other.tag == "Finish")
-		{
-			//Add SomethingHere
-			Debug.Log("Player Finished");
+			haveKey = false;
 		}
 
 		//Cehck for checkpoint
@@ -212,44 +162,27 @@ public class grapplingHook : MonoBehaviour
 
     public void respawnPlayer()
     {
+        rb.velocity = new Vector2();
+        this.transform.position = spawnPoint.position;
+
         switch (checkpoints)
         {
-			case 0:
-				rb.velocity = new Vector2(); ;
-				this.transform.position = spawn.position; ;
-				break;
-
-			case 1:
+            case 1:
                 rb.velocity = new Vector2(); ;
-                this.transform.position = spawnPoint1.position; ;
+                this.transform.position = spawnPoint2.position; ;
                 break;
 
             case 2:
                 rb.velocity = new Vector2();
-                this.transform.position = spawnPoint2.position;
+                this.transform.position = spawnPoint3.position;
                 break;
 
             case 3:
                 rb.velocity = new Vector2();
-                this.transform.position = spawnPoint3.position;
+                this.transform.position = spawnPoint4.position;
                 break;
 
-			case 4:
-				rb.velocity = new Vector2();
-				this.transform.position = spawnPoint4.position;
-				break;
-
-			case 5:
-				rb.velocity = new Vector2();
-				this.transform.position = spawnPoint5.position;
-				break;
-
-			case 6:
-				rb.velocity = new Vector2();
-				this.transform.position = spawnPoint6.position;
-				break;
-
-			default:
+            default:
                 break;
         }
     }
