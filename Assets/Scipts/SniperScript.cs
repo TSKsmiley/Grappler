@@ -24,6 +24,8 @@ public class SniperScript : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
 
+
+
         //Sets the lines width to 0
         lr.startWidth = 0F;
         lr.endWidth = 0F;
