@@ -105,23 +105,27 @@ public class grapplingHook : MonoBehaviour
 		{
 			rb.velocity = new Vector2();
 			this.transform.position = spawnPoint.position;
-			
-			if (checkpoints == 1)//Respawn at second checkpoint if checkpoints reached is 1
-			{
-				rb.velocity = new Vector2();
-				this.transform.position = spawnPoint2.position;
-			}
-			if (checkpoints == 2)//Respawn at second checkpoint if checkpoints reached is 2
-			{
-				rb.velocity = new Vector2();
-				this.transform.position = spawnPoint3.position;
-			}
-			if (checkpoints == 3)//Respawn at second checkpoint if checkpoints reached is 3
-			{
-				rb.velocity = new Vector2();
-				this.transform.position = spawnPoint4.position;
-			}
 
+			switch (checkpoints)
+			{
+				case 1:
+					rb.velocity = new Vector2(); ;
+					this.transform.position = spawnPoint2.position; ;
+					break;
+
+				case 2:
+					rb.velocity = new Vector2();
+					this.transform.position = spawnPoint3.position;
+					break;
+
+				case 3:
+					rb.velocity = new Vector2();
+					this.transform.position = spawnPoint4.position;
+					break;
+
+				default:
+					break;
+			}
 		}
 
 		//Give the player the key
