@@ -6,6 +6,7 @@ public class SniperScript : MonoBehaviour
 {
     LineRenderer lr;
     public Rigidbody2D rbPlayer;
+    public GameObject player;
 
     Vector2 playerOldPos;
     float timer;
@@ -18,13 +19,13 @@ public class SniperScript : MonoBehaviour
     public AudioClip SniperSound;
 
     bool playerIsDying = false;
+    bool reloadSoundHasPlayed = false;
+    bool shootSoundHasPlayed = false;
 
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-
-
 
         //Sets the lines width to 0
         lr.startWidth = 0F;
@@ -48,9 +49,14 @@ public class SniperScript : MonoBehaviour
 
             if (timer >= timeTillDeath)
             {
-                // Audio
-                AudioSrc.clip = ReloadSound;
-                AudioSrc.Play();
+
+                if (!reloadSoundHasPlayed)
+                {
+                    // Audio
+                    AudioSrc.clip = ReloadSound;
+                    AudioSrc.Play();
+                    reloadSoundHasPlayed = true;
+                }
 
                 if (AudioSrc.isPlaying)
                 {
@@ -58,23 +64,45 @@ public class SniperScript : MonoBehaviour
                 }
                 else if (playerIsDying == true && AudioSrc.isPlaying == false)
                 {
-                    //Sets the lines width to 0
+                    //Sets the lines width to 0.1
                     lr.startWidth = 0.1F;
                     lr.endWidth = 0.1F;
 
-                    // Audio
-                    AudioSrc.clip = SniperSound;
-                    AudioSrc.Play();
+                    if (!shootSoundHasPlayed)
+                    {
+                        // Audio
+                        AudioSrc.clip = SniperSound;
+                        AudioSrc.Play();
+                        shootSoundHasPlayed = true;
+                    }
 
                     if (!AudioSrc.isPlaying)
                     {
+                        // Reset everything
+                        playerIsDying = false;
+                        reloadSoundHasPlayed = false;
+                        shootSoundHasPlayed = false;
 
+                        lr.startWidth = 0.0f;
+                        lr.endWidth = 0.0f;
+
+                        timer = 0;
+
+                        player.GetComponent<grapplingHook>().respawnPlayer();
                     }
                 }
             }
         }
         else
         {
+            // Reset everything
+            playerIsDying = false;
+            reloadSoundHasPlayed = false;
+            shootSoundHasPlayed = false;
+
+            lr.startWidth = 0.0f;
+            lr.endWidth = 0.0f;
+
             timer = 0;
         }
 
