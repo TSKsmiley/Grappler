@@ -31,6 +31,6 @@ public class PlayButton : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         BlackImage.SetActive(true);
         yield return new WaitForSeconds(0.25f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
