@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class grapplingHook : MonoBehaviour
 {
@@ -38,6 +39,10 @@ public class grapplingHook : MonoBehaviour
     public AudioClip HookSound;
 
     bool prevSpace = false;
+
+    // UI Death counter
+    public Text deathsText;
+    private int deathCount;
 
     void Start()
 	{
@@ -212,6 +217,9 @@ public class grapplingHook : MonoBehaviour
 
     public void respawnPlayer()
     {
+        deathCount += 1;
+        deathsText.text = deathCount.ToString() + " deaths";
+
         switch (checkpoints)
         {
 			case 0:
